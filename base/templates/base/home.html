@@ -1,0 +1,90 @@
+{% extends 'base/style.html' %}
+{% block content %}
+<!--Username, Signout, and Pending Items Count-->
+<section class=header-bar>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            .row {
+                display: flex;
+            }
+            .column {
+                flex: 25%;
+                padding: 1px;
+                height: 40px;
+            }
+        </style>
+        <section class="row">
+            <div class="column">
+                <p style="font-size: 20px; color: #375b98;"><u>{{request.user|title}}</u></p>
+            </div>
+            <div class="column">
+                <a href="{% url 'signout' %}">
+                    <p style="font-size: 20px; text-align:right; color: #ffc0cb; text-decoration: underline; text-decoration-color: #ffc0cb;">
+                        Sign Out</p>
+                </a>
+            </div>
+        </section>
+    <section class="centered-text">
+        <p class="text-gradient">
+            <u>You have <code>{{count}}</code> thing{{ count|pluralize:"s" }} you can pray for today!</u>
+        </p>
+    </section>
+</section>
+
+<!--Title-->
+<section>
+    <hr style="border: 7px double #5a83c9; width: 60%; margin-left: auto; margin-right: auto;">
+    <h1 class="centered-text">{{request.user|title}}'s</h1>
+    <h1 class="centered-text">Prayer List</h1>
+    <hr style="border: 7px double #5a83c9; width: 60%; margin-left: auto; margin-right: auto;">
+</section>
+
+<!--Add Prayer Button and Symbols-->
+<section>
+    <div class=Prayer-Table></div>
+    <a href="{% url 'create-prayer' %}">
+        <h2 class="centered-text">&#x271D Add Prayer &#x271D;</h2>
+    </a>
+</section>
+
+<!--Search Bar-->
+<section id="search-add-wrapper">
+    <form method="GET" style="margin-top: 20px; display: flex;">
+        <input type='text' name='search-area' value="{{search_input}}">
+        <input class="button" type='submit' value='Search'>
+    </form>
+</section>
+
+<!--Prayer Table-->
+<section>
+    <div id="prayerList' class=" prayer-items-wrapper">
+        {% for prayer in home %}
+        <div class="prayer-wrapper" data position="{{prayer.pk}}">
+            <div class="prayer-title">
+                {% if prayer.answered %}
+                <div class="prayer-answered-icon"></div>
+                <i><s><a href="{% url 'update-prayer' prayer.id %}">{{prayer}}</a></s></i>
+                {% elif prayer.priority %}
+                <div class="prayer-priority-icon"></div>
+                <b><a href="{% url 'update-prayer' prayer.id %}">{{prayer}}</a></b>
+                {% else %}
+                <div class="prayer-notAnswered-icon"></div>
+                <a href="{% url 'update-prayer' prayer.id %}">{{prayer}}</a>
+                {% endif %}
+            </div>
+            <div class="prayer-controls">
+                <a style="text-decoration: none;" class="delete-link" href="{% url 'delete-prayer' prayer.id %}">Delete
+                    &#128465;</a>
+            </div>
+        </div>
+        {% empty %}
+        <h3>There are currently no prayers in your list.</h3>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+{% endblock content %}

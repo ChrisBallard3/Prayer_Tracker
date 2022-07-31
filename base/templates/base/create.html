@@ -1,0 +1,22 @@
+{% extends 'base/style.html' %}
+{% block content %}
+
+<!--Go Back Header-->
+<div class="header-bar">
+    <a style="color: #40474d; text-decoration: none;" href="{% url 'home' %}">&#8592; Back</a>
+</div>
+<br>
+<h2>Prayer Requests or Additions</h2>
+
+<!--New Prayer Submission Form-->
+<div class="card-body">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="button" type="submit" value="Submit">
+    </form>
+</div>
+
+{% endblock content %}
+
+
