@@ -75,7 +75,7 @@ class PrayerCreate(LoginRequiredMixin, CreateView):
     model = Prayer
     context_object_name = 'create'
     template_name = 'base/create.html'
-    fields = ['prayer', 'description', 'answered', 'priority']
+    fields = ['prayer', 'description', 'priority']
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
