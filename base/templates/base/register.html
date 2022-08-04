@@ -11,15 +11,22 @@
         <label>{{form.username.label}}</label>
         <br>
         {{form.username}}
-        <br><br>
+        <br>
+        <br>
         <label>{{form.password1.label}}</label>
         <br>
         {{form.password1}}
-        <br><br>
+        <br>
+        <ul style ="font-size: 10.5px">
+            <li>Password must contain at least <u>8</u> characters.</li>
+            <li>Password cannot be entirely numeric.</li>
+            <li>Password cannot be commonly used password or roo similar to your other personal information.</li>
+        </ul>
         <label>{{form.password2.label}}</label>
         <br>
         {{form.password2}}
-        <br><br>
+        <br>
+        <br>
         <input class="button" type='submit' value='Register'>
     </form>
     <br>
